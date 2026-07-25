@@ -95,6 +95,25 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  packages/contract:
+    dependencies:
+      '@orpc/contract':
+        specifier: ^1.14.10
+        version: 1.14.10
+      '@repo/database':
+        specifier: workspace:*
+        version: link:../database
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: 7.1.0-dev.20260725.1
+        version: 7.1.0-dev.20260725.1
+
   packages/database:
     dependencies:
       '@prisma/adapter-pg':
@@ -465,6 +484,29 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
+  '@orpc/client@1.14.10':
+    resolution: {integrity: sha512-WIkFPTaD8eBeufuI1uETgQev1R6gvkpjHgXqF5SIrBPCaCexDL6eJotSCCtDqYBYdIYqoPI3gD+buCvwaKsHoQ==}
+
+  '@orpc/contract@1.14.10':
+    resolution: {integrity: sha512-VNCVhccFqA+vLsMCv/b0hEnWsoGuyNIQRpZTPgo0C6sOHqkdJ5pFmGlswQCUpl3F7apBajLDshMAdE0vwNi1uw==}
+
+  '@orpc/shared@1.14.10':
+    resolution: {integrity: sha512-RiiHAGWXBW8yjNg3brdEFcnfcPA9sxVQXFNl/zgUQoaVZz8z74lKlcSAU4rnK97d3e/NP3BPiiuZ9RHsY2bnhQ==}
+    peerDependencies:
+      '@opentelemetry/api': '>=1.9.0'
+    peerDependenciesMeta:
+      '@opentelemetry/api':
+        optional: true
+
+  '@orpc/standard-server-fetch@1.14.10':
+    resolution: {integrity: sha512-gOHz6Uf5G9sOCUJI2pNoUK6OzCNQvgpQbLFpR4YDx4kalrLh2SYC4EoOB8DQLQ3+RQLa3eI8pTLju8+5gy0ZtQ==}
+
+  '@orpc/standard-server-peer@1.14.10':
+    resolution: {integrity: sha512-bX44q9vIpsHwJooOanLKJhP5Ii5JUgC1FWrcAPMYCVdA51TqdxkXs2lYxJIe2AAA3kiX2P2L2fx8ArTYzOjc4A==}
+
+  '@orpc/standard-server@1.14.10':
+    resolution: {integrity: sha512-JCnShe40mswSA1B8J/tYn6wO4vET/fVWtE8bjDb7C3yK635YixilQWJKnhLdFLXTjBwjQIIzgDF1I+0RXseTRQ==}
+
   '@prisma/adapter-pg@7.9.0':
     resolution: {integrity: sha512-kPYuFvNTlqnaFf2UpXBBG3ycTT3PL76uSZtLFBEwDytjMMUW8ZHrsb9cSNIarzdPW5EXWmBOeOq9/MVjMtbWkA==}
 
@@ -768,8 +810,20 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@typescript/typescript-darwin-arm64@7.1.0-dev.20260725.1':
+    resolution: {integrity: sha512-aAbdA1Y289c47h5cZDngAd01VUqJoZKckefl99pL7TDRiHe7NySjYxTrJSKP3CFa52tY80L1DjmelnFVsi+idw==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [darwin]
+
   '@typescript/typescript-darwin-x64@7.0.2':
     resolution: {integrity: sha512-SZ9xZInqApNlNGc9s0W1VSsktYSOe9cFqNOIqmN1Gs8SmkjKZYFt017G4VwPxASInODuAdbTW7sXiFUf893RgA==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@typescript/typescript-darwin-x64@7.1.0-dev.20260725.1':
+    resolution: {integrity: sha512-U7KmzkZrZVb6no31iBj9emqTzW3yUjW/h0RWGdy4sbJ/0iYFD8IWV8FZQ5Bi6q2pL4QKDtJwA9wKQfe9l9AtGA==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [darwin]
@@ -792,8 +846,20 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@typescript/typescript-linux-arm64@7.1.0-dev.20260725.1':
+    resolution: {integrity: sha512-RA4HE/dCop4wsncH1RzwcMuoBvwdzJm6oewUynZ8jY+5caRQNosG2K2LwWGQf8w6Mvz7vODVBBqkj/moxWdNug==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [linux]
+
   '@typescript/typescript-linux-arm@7.0.2':
     resolution: {integrity: sha512-gffT3xPz9sR7j/YJExkyPntrI0P2EP9XbOyWzth2/Gs0RstK+90RBcO0ncXoXy/beYll1SXw846Nf2zdnEz0QQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm]
+    os: [linux]
+
+  '@typescript/typescript-linux-arm@7.1.0-dev.20260725.1':
+    resolution: {integrity: sha512-dZ/ete5AGtmubHTPctHxhU213WqSAhi9OHsbz6tNBiB5p7lenv/L+IDcjlvQAvLsBWrR754iGJNxFEX31iFR+w==}
     engines: {node: '>=16.20.0'}
     cpu: [arm]
     os: [linux]
@@ -834,6 +900,12 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@typescript/typescript-linux-x64@7.1.0-dev.20260725.1':
+    resolution: {integrity: sha512-ZhzPCzZkXsHLfSF+4GL6RIJDbKUgEgN3S1s0FXLWuLJ5DgSTNvxF0ScqrEUfE1LLvg1bRmbsLznpcrsPkbxyZw==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [linux]
+
   '@typescript/typescript-netbsd-arm64@7.0.2':
     resolution: {integrity: sha512-+polYF4MF04aPpO5FTkHran9yUQDSXqy5GiSDKpsll5jy3l3+g9QLhpf39T+ePtefhXLOGrLl0QIjkQP6VnelA==}
     engines: {node: '>=16.20.0'}
@@ -870,8 +942,20 @@ packages:
     cpu: [arm64]
     os: [win32]
 
+  '@typescript/typescript-win32-arm64@7.1.0-dev.20260725.1':
+    resolution: {integrity: sha512-33dtqoy2APeryaYBOcV8ZWYvblDie44S3WEmpVDp729WKXyeVu2h5s2ZFSaFm8lzjwyMULL2cvZmKxrNFWn5Ug==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [win32]
+
   '@typescript/typescript-win32-x64@7.0.2':
     resolution: {integrity: sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [win32]
+
+  '@typescript/typescript-win32-x64@7.1.0-dev.20260725.1':
+    resolution: {integrity: sha512-3RMXrcrXJZEJoWErbUF5vYsP+f6DLlwrHh66jEbvDTtvTC8x3MR6fqGdelXrcj/mEtRH/xeVILN+OdjJ1gKn6Q==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
@@ -1738,6 +1822,9 @@ packages:
   ohash@2.0.11:
     resolution: {integrity: sha512-RdR9FQrFwNBNXAr4GixM8YaRZRJ5PUWbKYbE5eOsrwAjJW0q2REGcf79oYPsLyskQCZG1PLN+S/K1V00joZAoQ==}
 
+  openapi-types@12.1.3:
+    resolution: {integrity: sha512-N4YtSYJqghVu4iek2ZUvcN/0aqH1kRDuNqzcycDxhOUpg7GdvLa2F3DgS6yBNhInhv2r/6I0Flkn7CqL8+nIcw==}
+
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
@@ -1891,6 +1978,10 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  radash@12.1.1:
+    resolution: {integrity: sha512-h36JMxKRqrAxVD8201FrCpyeNuUY9Y5zZwujr20fFO77tpUtGa6EZzfKw/3WaiBX95fq7+MpsuMLNdSnORAwSA==}
+    engines: {node: '>=14.18.0'}
 
   rc9@3.0.1:
     resolution: {integrity: sha512-gMDyleLWVE+i6Sgtc0QbbY6pEKqYs97NGi6isHQPqYlLemPoO8dxQ3uGi0f4NiP98c+jMW6cG1Kx9dDwfvqARQ==}
@@ -2093,6 +2184,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
     engines: {node: '>=12.0.0'}
@@ -2117,6 +2212,10 @@ packages:
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
+
+  type-fest@5.8.0:
+    resolution: {integrity: sha512-YGYEVz3Fm5iy/AybuA0oyNFq7H4CgQNfRp/qfe8nurE1kuCeNm3/vfm9X4Mtl+qLyaKJUh5xrFZwogr41SMjYA==}
+    engines: {node: '>=20'}
 
   typed-array-buffer@1.0.3:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
@@ -2147,6 +2246,11 @@ packages:
 
   typescript@7.0.2:
     resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
+    engines: {node: '>=16.20.0'}
+    hasBin: true
+
+  typescript@7.1.0-dev.20260725.1:
+    resolution: {integrity: sha512-LH7iJaOnezRGo/ZHDeNubObpZt1wx2HWKXbIrNpdlLavst1T0q+1COsAYRC8sNjGHS3aNDQy23dhwuhakbyhtA==}
     engines: {node: '>=16.20.0'}
     hasBin: true
 
@@ -2202,6 +2306,9 @@ packages:
 
   zeptomatch@2.1.0:
     resolution: {integrity: sha512-KiGErG2J0G82LSpniV0CtIzjlJ10E04j02VOudJsPyPwNZgGnRKQy7I1R7GMyg/QswnE4l7ohSGrQbQbjXPPDA==}
+
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
 snapshots:
 
@@ -2415,6 +2522,49 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
+
+  '@orpc/client@1.14.10':
+    dependencies:
+      '@orpc/shared': 1.14.10
+      '@orpc/standard-server': 1.14.10
+      '@orpc/standard-server-fetch': 1.14.10
+      '@orpc/standard-server-peer': 1.14.10
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/contract@1.14.10':
+    dependencies:
+      '@orpc/client': 1.14.10
+      '@orpc/shared': 1.14.10
+      '@standard-schema/spec': 1.1.0
+      openapi-types: 12.1.3
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/shared@1.14.10':
+    dependencies:
+      radash: 12.1.1
+      type-fest: 5.8.0
+
+  '@orpc/standard-server-fetch@1.14.10':
+    dependencies:
+      '@orpc/shared': 1.14.10
+      '@orpc/standard-server': 1.14.10
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/standard-server-peer@1.14.10':
+    dependencies:
+      '@orpc/shared': 1.14.10
+      '@orpc/standard-server': 1.14.10
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/standard-server@1.14.10':
+    dependencies:
+      '@orpc/shared': 1.14.10
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
 
   '@prisma/adapter-pg@7.9.0':
     dependencies:
@@ -2755,7 +2905,13 @@ snapshots:
   '@typescript/typescript-darwin-arm64@7.0.2':
     optional: true
 
+  '@typescript/typescript-darwin-arm64@7.1.0-dev.20260725.1':
+    optional: true
+
   '@typescript/typescript-darwin-x64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-darwin-x64@7.1.0-dev.20260725.1':
     optional: true
 
   '@typescript/typescript-freebsd-arm64@7.0.2':
@@ -2767,7 +2923,13 @@ snapshots:
   '@typescript/typescript-linux-arm64@7.0.2':
     optional: true
 
+  '@typescript/typescript-linux-arm64@7.1.0-dev.20260725.1':
+    optional: true
+
   '@typescript/typescript-linux-arm@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-arm@7.1.0-dev.20260725.1':
     optional: true
 
   '@typescript/typescript-linux-loong64@7.0.2':
@@ -2788,6 +2950,9 @@ snapshots:
   '@typescript/typescript-linux-x64@7.0.2':
     optional: true
 
+  '@typescript/typescript-linux-x64@7.1.0-dev.20260725.1':
+    optional: true
+
   '@typescript/typescript-netbsd-arm64@7.0.2':
     optional: true
 
@@ -2806,7 +2971,13 @@ snapshots:
   '@typescript/typescript-win32-arm64@7.0.2':
     optional: true
 
+  '@typescript/typescript-win32-arm64@7.1.0-dev.20260725.1':
+    optional: true
+
   '@typescript/typescript-win32-x64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-win32-x64@7.1.0-dev.20260725.1':
     optional: true
 
   '@visx/curve@4.0.1-alpha.0':
@@ -3851,6 +4022,8 @@ snapshots:
 
   ohash@2.0.11: {}
 
+  openapi-types@12.1.3: {}
+
   optionator@0.9.4:
     dependencies:
       deep-is: 0.1.4
@@ -3995,6 +4168,8 @@ snapshots:
   pure-rand@6.1.0: {}
 
   queue-microtask@1.2.3: {}
+
+  radash@12.1.1: {}
 
   rc9@3.0.1:
     dependencies:
@@ -4251,6 +4426,8 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
+  tagged-tag@1.0.0: {}
+
   tinyglobby@0.2.15:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
@@ -4278,6 +4455,10 @@ snapshots:
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
+
+  type-fest@5.8.0:
+    dependencies:
+      tagged-tag: 1.0.0
 
   typed-array-buffer@1.0.3:
     dependencies:
@@ -4347,6 +4528,16 @@ snapshots:
       '@typescript/typescript-sunos-x64': 7.0.2
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
+
+  typescript@7.1.0-dev.20260725.1:
+    optionalDependencies:
+      '@typescript/typescript-darwin-arm64': 7.1.0-dev.20260725.1
+      '@typescript/typescript-darwin-x64': 7.1.0-dev.20260725.1
+      '@typescript/typescript-linux-arm': 7.1.0-dev.20260725.1
+      '@typescript/typescript-linux-arm64': 7.1.0-dev.20260725.1
+      '@typescript/typescript-linux-x64': 7.1.0-dev.20260725.1
+      '@typescript/typescript-win32-arm64': 7.1.0-dev.20260725.1
+      '@typescript/typescript-win32-x64': 7.1.0-dev.20260725.1
 
   unbox-primitive@1.1.0:
     dependencies:
@@ -4420,3 +4611,5 @@ snapshots:
     dependencies:
       grammex: 3.1.13
       graphmatch: 1.1.1
+
+  zod@4.4.3: {}

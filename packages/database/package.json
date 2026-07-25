@@ -5,13 +5,10 @@
   "type": "module",
   
   "exports":{
-      "./*":"./src/*.ts"
-  },
-  "scripts": {
-    "generate": "prisma generate",
-    "migrate": "prisma migrate dev",
-    "migrate:prod": "prisma migrate deploy",
-    "studio": "prisma studio"
+      ".":{
+          "import":"./src/index.ts",
+          "types":"./src/index.ts"
+      }
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
