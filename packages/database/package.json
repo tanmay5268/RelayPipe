@@ -7,6 +7,12 @@
   "exports":{
       "./*":"./src/*.ts"
   },
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev",
+    "migrate:prod": "prisma migrate deploy",
+    "studio": "prisma studio"
+  },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/pg": "^8.20.0",
