@@ -11,11 +11,16 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+      "@orpc/json-schema": "^1.14.4",
+      "@orpc/zod": "^1.14.4",
+    "@orpc/openapi": "^1.14.4",
+    "@orpc/server": "^1.14.10",
+    "@repo/contract": "workspace:*",
+    "@repo/database": "workspace:*",
     "@repo/ui": "workspace:*",
     "next": "16.2.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "@repo/database":"workspace:*"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
