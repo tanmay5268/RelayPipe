@@ -62,14 +62,18 @@ const fileinit_contract = base.route({
     method: "POST",
     path: "/v1/fileinit",
     successStatus: 200,
-    tags:["file"]
+    tags: ["file"],
+    description:"Intention is to create a record in the database with status=pending and a s3 put url and send both to the client "
 }).input(uploadInitInputSchema).output(uploadInitOutputSchema)
 
 const fileconfirm_contract = base.route({
     method: "POST",
     path: "/v1/fileconfirm",
     successStatus: 200,
-    tags:["file"]
+    tags: ["file"],
+    successDescription:"send jobid and status once db call is succesfull",
+    description: "Initiate only if client succesfully get ok status from s3, set job status=queued in db create job in queue",
+    
 }).input(confirmUploadInputSchema).output(confirmUploadOutputSchema)
 
 export const contract = {

@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "echo 'Add dev script here'",
-    "build": "echo 'Add build script here'",
-    "test": "echo 'Add test script here'",
-    "lint": "echo 'Add lint script here'"
+    "dev": "tsx watch src/worker.ts",
+    "build": "tsc",
+    "start": "node dist/worker.ts",
+    "lint": "eslint --max-warnings 0",
+    "test": "echo 'Add test script here'"
   },
   "dependencies": {
     "@repo/database": "workspace:*",
@@ -14,6 +15,7 @@
     "ioredis": "^5.11.1"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "tsx":"^4.19.0"
   }
 }
