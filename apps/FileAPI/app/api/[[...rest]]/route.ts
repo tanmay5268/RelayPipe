@@ -19,14 +19,14 @@ const handler = new OpenAPIHandler(router, {
                         "File Processing System with worker + s3+ redis",
                     },
                     security: [{ bearerAuth: [] }],
-                    components: {
-                      securitySchemes: {
-                        bearerAuth: {
-                          type: "http",
-                          scheme: "bearer",
-                        },
-                      },
-                    },
+                    // components: {
+                    //   securitySchemes: {
+                    //     bearerAuth: {
+                    //       type: "http",
+                    //       scheme: "bearer",
+                    //     },
+                    //   },
+                    // },
                 }
         }
     ),

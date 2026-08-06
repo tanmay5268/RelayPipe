@@ -1,6 +1,7 @@
 import { oc } from "@orpc/contract";
 import * as z from "zod"
 import { uploadInitInputSchema,uploadInitOutputSchema,confirmUploadInputSchema,confirmUploadOutputSchema} from "./schema/file.schema";
+import { getApiKeyInputSchema, getApiKeyOutputSchema } from "./schema/auth.schema";
 export const base = oc.errors({
     BAD_REQUEST: {
         status: 400,
@@ -76,9 +77,19 @@ const fileconfirm_contract = base.route({
     
 }).input(confirmUploadInputSchema).output(confirmUploadOutputSchema)
 
+const apikey = base.route({
+    method: "GET",
+    path: "/v1/get_api",
+    successStatus: 200,
+    tags: ["auth"],
+    successDescription: "Returns the user's API key details",
+    description: "Get the authenticated user's API key information"
+}).input(getApiKeyInputSchema).output(getApiKeyOutputSchema)
+
 export const contract = {
     relaypipe: {
         fileinit: fileinit_contract,
-        fileupload:fileconfirm_contract
+        fileupload: fileconfirm_contract,
+        apikey: apikey
     }
 }
