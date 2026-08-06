@@ -1,0 +1,21 @@
+{
+  "name": "file_worker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/worker.ts",
+    "build": "tsc",
+    "start": "node dist/worker.ts",
+    "lint": "eslint --max-warnings 0",
+    "test": "echo 'Add test script here'"
+  },
+  "dependencies": {
+    "@repo/database": "workspace:*",
+    "bullmq": "^5.81.2",
+    "ioredis": "^5.11.1"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "tsx":"^4.19.0"
+  }
+}

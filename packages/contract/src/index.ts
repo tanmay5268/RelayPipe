@@ -1,6 +1,7 @@
 import { oc } from "@orpc/contract";
 import * as z from "zod"
 import { uploadInitInputSchema,uploadInitOutputSchema,confirmUploadInputSchema,confirmUploadOutputSchema} from "./schema/file.schema";
+import { getApiKeyInputSchema, getApiKeyOutputSchema } from "./schema/auth.schema";
 export const base = oc.errors({
     BAD_REQUEST: {
         status: 400,
@@ -62,19 +63,33 @@ const fileinit_contract = base.route({
     method: "POST",
     path: "/v1/fileinit",
     successStatus: 200,
-    tags:["file"]
+    tags: ["file"],
+    description:"Intention is to create a record in the database with status=pending and a s3 put url and send both to the client "
 }).input(uploadInitInputSchema).output(uploadInitOutputSchema)
 
 const fileconfirm_contract = base.route({
     method: "POST",
     path: "/v1/fileconfirm",
     successStatus: 200,
-    tags:["file"]
+    tags: ["file"],
+    successDescription:"send jobid and status once db call is succesfull",
+    description: "Initiate only if client succesfully get ok status from s3, set job status=queued in db create job in queue",
+    
 }).input(confirmUploadInputSchema).output(confirmUploadOutputSchema)
+
+const apikey = base.route({
+    method: "GET",
+    path: "/v1/get_api",
+    successStatus: 200,
+    tags: ["auth"],
+    successDescription: "Returns the user's API key details",
+    description: "Get the authenticated user's API key information"
+}).input(getApiKeyInputSchema).output(getApiKeyOutputSchema)
 
 export const contract = {
     relaypipe: {
         fileinit: fileinit_contract,
-        fileupload:fileconfirm_contract
+        fileupload: fileconfirm_contract,
+        apikey: apikey
     }
 }
