@@ -5,6 +5,7 @@ import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import { CORSPlugin } from "@orpc/server/plugins";
 import { onError } from "@orpc/server";
 import { router } from "@/router";
+import { NextRequest } from "next/server";
 const schemaConverters = [new ZodToJsonSchemaConverter()];
 const handler = new OpenAPIHandler(router, {
   plugins: [
@@ -43,7 +44,7 @@ const handler = new OpenAPIHandler(router, {
 
 });
 
-async function handleRequest(request: Request) {
+async function handleRequest(request: NextRequest) {
   const resHeaders = new Headers();
 
   const { response } = await handler.handle(request, {
@@ -51,6 +52,8 @@ async function handleRequest(request: Request) {
     context: {
       headers: request.headers,
         resHeaders,
+        req:request
+        
     },
   });
 
