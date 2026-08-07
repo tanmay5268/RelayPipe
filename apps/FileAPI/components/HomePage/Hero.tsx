@@ -152,7 +152,7 @@ export default function Hero2() {
               </button>
               <button
                 className="dark:bg-orange-500 text-white dark:text-black hover:bg-gray-800 dark:hover:bg-orange-200 focus:ring-gray-900 dark:focus:ring-gray-300 px-5 py-2.5 rounded-lg w-full sm:w-auto font-semibold text-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105"
-                onClick={handleApiPlayground}></button>
+                onClick={handleApiPlayground}>API Docs</button>
             </div>
           </div>
         </section>
