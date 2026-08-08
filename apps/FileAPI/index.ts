@@ -1,11 +1,6 @@
-import { prisma } from "@repo/database"
+import { Redis } from '@upstash/redis'
+const redis = Redis.fromEnv()
 
-async function main(){
-    const users = await prisma.user.findMany()
-        console.log(users)
-}
-main().finally(async () => { 
-
-    prisma.$disconnect()
-    
-})
+await redis.set("tanmay", "mewati");
+const sur = await redis.get("tanmay");
+console.log(sur)

@@ -23,6 +23,7 @@
     "@repo/ui": "workspace:*",
     "@scalar/nextjs-api-reference": "^0.11.13",
     "@tailwindcss/postcss": "^4.3.3",
+    "@upstash/redis": "^1.38.2",
     "better-auth": "^1.6.26",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

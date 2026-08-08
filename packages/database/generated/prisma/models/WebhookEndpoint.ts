@@ -371,6 +371,10 @@ export type WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.WebhookEndpointScalarWhereInput | Prisma.WebhookEndpointScalarWhereInput[]
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type WebhookEndpointCreateNestedOneWithoutDeliveriesInput = {
   create?: Prisma.XOR<Prisma.WebhookEndpointCreateWithoutDeliveriesInput, Prisma.WebhookEndpointUncheckedCreateWithoutDeliveriesInput>
   connectOrCreate?: Prisma.WebhookEndpointCreateOrConnectWithoutDeliveriesInput

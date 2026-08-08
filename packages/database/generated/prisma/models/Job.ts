@@ -620,6 +620,14 @@ export type EnumJobStatusFieldUpdateOperationsInput = {
   set?: $Enums.JobStatus
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type JobCreateNestedOneWithoutOutputsInput = {
   create?: Prisma.XOR<Prisma.JobCreateWithoutOutputsInput, Prisma.JobUncheckedCreateWithoutOutputsInput>
   connectOrCreate?: Prisma.JobCreateOrConnectWithoutOutputsInput

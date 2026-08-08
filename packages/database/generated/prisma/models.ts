@@ -9,7 +9,6 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
-export type * from './models/ApiKey'
 export type * from './models/Job'
 export type * from './models/JobOutput'
 export type * from './models/WebhookEndpoint'

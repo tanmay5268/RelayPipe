@@ -52,7 +52,6 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  ApiKey: 'ApiKey',
   Job: 'Job',
   JobOutput: 'JobOutput',
   WebhookEndpoint: 'WebhookEndpoint',
@@ -82,19 +81,6 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const ApiKeyScalarFieldEnum = {
-  id: 'id',
-  key: 'key',
-  name: 'name',
-  active: 'active',
-  lastUsedAt: 'lastUsedAt',
-  createdAt: 'createdAt',
-  revokedAt: 'revokedAt'
-} as const
-
-export type ApiKeyScalarFieldEnum = (typeof ApiKeyScalarFieldEnum)[keyof typeof ApiKeyScalarFieldEnum]
 
 
 export const JobScalarFieldEnum = {

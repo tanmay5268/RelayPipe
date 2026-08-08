@@ -22,21 +22,6 @@ model User {
   @@map("users")
 }
 
-model ApiKey {
-  id          String    @id @default(uuid())
-
-  key         String    @unique   // the actual secret, e.g. "fps_a1b2c3..."
-  name        String?             // optional label, e.g. "Production script"
-
-  active      Boolean   @default(true)
-  lastUsedAt  DateTime?
-  createdAt   DateTime  @default(now())
-  revokedAt   DateTime?
-
-  @@index([key])
-  @@map("api_keys")
-}
-
 model Job {
   id           String    @id @default(uuid())
   userId       String
