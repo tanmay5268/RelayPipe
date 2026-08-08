@@ -7,6 +7,7 @@ export default async function Project() {
 
     async function createuser() {
         if (email) {
+            console.log(email)
       await prisma.user.upsert({
         where: { email },
         update: {},
