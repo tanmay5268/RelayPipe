@@ -90,6 +90,5 @@ export const contract = {
     relaypipe: {
         fileinit: fileinit_contract,
         fileupload: fileconfirm_contract,
-        apikey: apikey
     }
 }
