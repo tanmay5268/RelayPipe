@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { useToast } from "@/components/ui/toast-context";
 import Link from "next/link";
+import { registerUser } from "@/actions";
 
 const LogoIcon: React.FC = () => (
   <svg
@@ -60,7 +61,7 @@ export default function Hero2() {
   const { showToast } = useToast();
   const router = useRouter();
 
-  const handleSeeHowItWorks = (direct: string) => {
+  const handleSeeHowItWorks = async (direct: string) => {
     if (!isSignedIn) {
       showToast(
         "warning",
@@ -70,6 +71,7 @@ export default function Hero2() {
       );
       return;
     }
+    await registerUser()
     router.push(direct);
   };
 
