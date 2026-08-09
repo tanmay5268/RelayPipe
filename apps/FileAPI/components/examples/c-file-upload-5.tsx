@@ -18,12 +18,14 @@ import { Badge } from "@/components/reui/badge"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
+import { uploadFile, type UploadResult } from "@/lib/upload-service"
 import { ImageIcon, VideoCameraIcon, Headphones, FileTextIcon, FileArchive, UploadSimple, XIcon, WarningCircleIcon, ArrowsClockwiseIcon } from "@phosphor-icons/react"
 
 interface FileUploadItem extends FileWithPreview {
   progress: number
-  status: "uploading" | "completed" | "error"
+  status: "uploading" | "completed" | "error" | "uploading-real"
   error?: string
+  uploadResult?: UploadResult
 }
 
 interface ProgressUploadProps {
@@ -34,6 +36,8 @@ interface ProgressUploadProps {
   className?: string
   onFilesChange?: (files: FileWithPreview[]) => void
   simulateUpload?: boolean
+  onUploadComplete?: (file: FileUploadItem, response: UploadResult) => void
+  onUploadError?: (file: FileUploadItem, error: Error) => void
 }
 
 export function Pattern({
@@ -44,6 +48,8 @@ export function Pattern({
   className,
   onFilesChange,
   simulateUpload = true,
+  onUploadComplete,
+  onUploadError,
 }: ProgressUploadProps) {
   // Create default images using FileMetadata type
   const defaultImages: FileMetadata[] = [
@@ -135,10 +141,33 @@ export function Pattern({
 
           // Complete when progress reaches 100%
           if (newProgress >= 100) {
+            // Trigger real upload asynchronously
+            const fileForUpload = file.file as File
+            uploadFile(fileForUpload)
+              .then((result) => {
+                setUploadFiles((current) =>
+                  current.map((f) =>
+                    f.id === file.id
+                      ? { ...f, progress: 100, status: "completed" as const, uploadResult: result }
+                      : f
+                  )
+                )
+              })
+              .catch((error) => {
+                setUploadFiles((current) =>
+                  current.map((f) =>
+                    f.id === file.id
+                      ? { ...f, status: "error" as const, error: error instanceof Error ? error.message : "Upload failed" }
+                      : f
+                  )
+                )
+              })
+
+            // Return intermediate state - mark as "uploading-real" to prevent duplicate triggers
             return {
               ...file,
               progress: 100,
-              status: "completed" as const,
+              status: "uploading-real" as const,
             }
           }
 
@@ -152,6 +181,18 @@ export function Pattern({
 
     return () => clearInterval(interval)
   }, [simulateUpload])
+
+  // Trigger callbacks on upload completion/error
+  useEffect(() => {
+    uploadFiles.forEach((file) => {
+      if (file.status === "completed" && file.uploadResult && onUploadComplete) {
+        onUploadComplete(file, file.uploadResult)
+      }
+      if (file.status === "error" && file.error && onUploadError) {
+        onUploadError(file, new Error(file.error))
+      }
+    })
+  }, [uploadFiles, onUploadComplete, onUploadError])
 
   const retryUpload = (fileId: string) => {
     setUploadFiles((prev) =>
