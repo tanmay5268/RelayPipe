@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState,useRef,useCallback } from "react"
 import {
   formatBytes,
   useFileUpload,
@@ -72,11 +72,13 @@ export function Pattern({
   const [uploadFiles, setUploadFiles] =
     useState<FileUploadItem[]>(defaultUploadFiles)
 
+  const uploadedFilesRef = useRef<Set<string>>(new Set())
+
   const [
     { isDragging, errors },
     {
       removeFile,
-      clearFiles,
+      clearFiles: originalClearFiles,
       handleDragEnter,
       handleDragLeave,
       handleDragOver,
@@ -113,10 +115,15 @@ export function Pattern({
           }
         }
       })
-      setUploadFiles(newUploadFiles)
+setUploadFiles(newUploadFiles)
       onFilesChange?.(newFiles)
     },
   })
+
+  const clearFiles = useCallback(() => {
+    uploadedFilesRef.current.clear()
+    originalClearFiles()
+  }, [originalClearFiles])
 
   // Simulate upload progress
   useEffect(() => {
@@ -140,7 +147,9 @@ export function Pattern({
           }
 
           // Complete when progress reaches 100%
-          if (newProgress >= 100) {
+          if (newProgress >= 100 && (file as FileUploadItem).status !== "uploading-real" && !uploadedFilesRef.current.has(file.id)) {
+            // Mark as uploaded to prevent duplicate triggers
+            uploadedFilesRef.current.add(file.id)
             // Trigger real upload asynchronously
             const fileForUpload = file.file as File
             uploadFile(fileForUpload)
@@ -195,6 +204,7 @@ export function Pattern({
   }, [uploadFiles, onUploadComplete, onUploadError])
 
   const retryUpload = (fileId: string) => {
+    uploadedFilesRef.current.delete(fileId)
     setUploadFiles((prev) =>
       prev.map((file) =>
         file.id === fileId
@@ -210,6 +220,7 @@ export function Pattern({
   }
 
   const removeUploadFile = (fileId: string) => {
+    uploadedFilesRef.current.delete(fileId)
     setUploadFiles((prev) => prev.filter((file) => file.id !== fileId))
     removeFile(fileId)
   }

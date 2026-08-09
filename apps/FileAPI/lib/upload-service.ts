@@ -23,15 +23,36 @@ function getAllowedMimeType(mimeType: string): AllowedMimeType {
   return 'application/pdf'
 }
 
+async function uploadToS3(s3url: string, file: File, mimeType: string): Promise<boolean> {
+  const response = await fetch(s3url, {
+      method: 'PUT',
+      mode:"cors",
+    headers: {
+      'Content-Type': mimeType,
+    },
+    body: file,
+  })
+  return response.ok
+}
+
 export async function uploadFile(file: File): Promise<UploadResult> {
   const mimeType = getAllowedMimeType(file.type || 'application/pdf')
   
-  const { jobId } = await orpcClient.relaypipe.fileinit({
+  const { jobId, s3url } = await orpcClient.relaypipe.fileinit({
     filename: file.name,
     mimeType,
     size: file.size,
   })
+  
+  // Upload to S3 first
+  const s3Success = await uploadToS3(s3url, file, mimeType)
+  if (!s3Success) {
+    throw new Error('S3 upload failed')
+  }
+  
+  
+  // File upload call only happens after successful S3 upload
   const result = await orpcClient.relaypipe.fileupload({ jobId })
-console.log(result)
+  console.log(result)
   return result
 }

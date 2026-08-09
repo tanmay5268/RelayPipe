@@ -11,6 +11,8 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1106.0",
+    "@aws-sdk/s3-request-presigner": "^3.1106.0",
     "@base-ui/react": "^1.7.0",
     "@clerk/nextjs": "^7.7.0",
     "@orpc/client": "^1.15.0",
