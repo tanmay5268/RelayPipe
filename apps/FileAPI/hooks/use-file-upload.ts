@@ -347,6 +347,9 @@ export const useFileUpload = (
         // In single file mode, only use the first file
         if (!multiple) {
           const file = e.dataTransfer.files[0]
+            if (!file) {
+              return 
+          }
           addFiles([file])
         } else {
           addFiles(e.dataTransfer.files)
