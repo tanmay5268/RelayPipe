@@ -2,9 +2,8 @@
 import { useAuth } from "@clerk/nextjs";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { SignUpButton, UserButton } from "@clerk/nextjs";
 import { useToast } from "@/components/ui/toast-context";
-import Link from "next/link";
 import { registerUser } from "@/actions";
 
 const LogoIcon: React.FC = () => (
@@ -71,7 +70,7 @@ export default function Hero2() {
       );
       return;
     }
-    await registerUser()
+    await registerUser();
     router.push(direct);
   };
 
@@ -89,13 +88,13 @@ export default function Hero2() {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-white dark:bg-black">
-      <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+    <div className="relative w-full h-screen overflow-hidden bg-[#2A2A2A]">
+      {/*<div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
         <div className="w-[40rem] h-[40rem] bg-gradient-to-tr from-orange-200 dark:from-orange-800/30 to-transparent opacity-20 dark:opacity-10 rounded-full blur-3xl" />
-      </div>
-      <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 pointer-events-none">
+      </div>*/}
+      {/*<div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 pointer-events-none">
         <div className="w-[40rem] h-[40rem] bg-gradient-to-bl from-orange-200 dark:from-orange-800/30 to-transparent opacity-20 dark:opacity-10 rounded-full blur-3xl" />
-      </div>
+      </div>*/}
 
       <header className="relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -123,7 +122,7 @@ export default function Hero2() {
       </header>
 
       <main>
-        <section className="relative z-10 text-center py-16 sm:py-24 px-4">
+        <section className="relative z-10 text-center py-16 sm:py-15 px-4">
           <div className="max-w-4xl mx-auto">
             <span className="inline-block px-4 py-1.5 text-xs font-semibold tracking-wider text-orange-600 dark:text-orange-400 uppercase bg-orange-100 dark:bg-orange-900/30 rounded-full">
               Live File PipeLine
@@ -154,7 +153,10 @@ export default function Hero2() {
               </button>
               <button
                 className="dark:bg-orange-500 text-white dark:text-black hover:bg-gray-800 dark:hover:bg-orange-200 focus:ring-gray-900 dark:focus:ring-gray-300 px-5 py-2.5 rounded-lg w-full sm:w-auto font-semibold text-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105"
-                onClick={handleApiPlayground}>API Docs</button>
+                onClick={handleApiPlayground}
+              >
+                API Docs
+              </button>
             </div>
           </div>
         </section>

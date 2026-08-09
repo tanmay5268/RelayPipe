@@ -52,7 +52,6 @@ async function handleRequest(request: NextRequest) {
     context: {
       headers: request.headers,
         resHeaders,
-        req:request
         
     },
   });
