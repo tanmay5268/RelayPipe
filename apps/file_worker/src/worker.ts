@@ -1,14 +1,17 @@
 import { Worker } from "bullmq";
-import { connection } from "./redis";
+import { client } from "@repo/queue";
 
 new Worker(
-  "emails",
+  "file-worker",
   async (job) => {
     console.log("Processing job...");
-    console.log(job.data);
+    console.log(job);
+    setTimeout(() => {
+      console.log("Job processed");
+    }, 10000)
   },
   {
-    connection,
+    connection: client,
   }
 );
 

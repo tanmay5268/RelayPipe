@@ -1,5 +1,7 @@
 import { UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Pattern } from "@/components/examples/c-file-upload-5";
+
 const LogoIcon: React.FC = () => (
   <svg
     width="24"
@@ -15,6 +17,8 @@ const LogoIcon: React.FC = () => (
   </svg>
 );
 export default async function Project() {
+  await auth.protect();
+
   return (
     <div className=" h-screen w-screen text-black bg-[#2a2a2a]">
       <header className="relative z-20">

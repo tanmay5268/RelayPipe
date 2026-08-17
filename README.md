@@ -75,6 +75,7 @@ Create `.env` files. The build expects env vars in `apps/FileAPI/.env` (and `pac
 | `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` / `CLERK_SECRET_KEY` | Clerk auth |
 | `BUCKET_NAME` / `BUCKET_REGION` / `S3_ACCESS_KEY` / `S3_SECRET_ACCESS_KEY` | S3 presigned uploads |
 | `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis (web app) |
+| `UPSTASH_REDIS_URL` | Upstash Redis connection string for the BullMQ worker (`apps/file_worker/.env`) |
 | `BETTER_AUTH_SECRET` / `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Reserved (better-auth dependency) |
 
 ### Set up the database
