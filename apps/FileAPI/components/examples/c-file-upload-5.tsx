@@ -138,13 +138,6 @@ setUploadFiles(newUploadFiles)
           const newProgress = Math.min(file.progress + increment, 100)
 
           // Simulate occasional errors (10% chance when progress > 50%)
-          if (newProgress > 50 && Math.random() < 0.1) {
-            return {
-              ...file,
-              status: "error" as const,
-              error: "Upload failed. Please try again.",
-            }
-          }
 
           // Complete when progress reaches 100%
           if (newProgress >= 100 && (file as FileUploadItem).status !== "uploading-real" && !uploadedFilesRef.current.has(file.id)) {
