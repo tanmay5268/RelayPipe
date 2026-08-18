@@ -28,6 +28,9 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "file_worker#build": {
+      "outputs": []
+    },
     "check-types": {
       "dependsOn": ["^check-types"]
     },

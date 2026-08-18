@@ -2,21 +2,28 @@
   "name": "file_worker",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "tsx watch src/worker.ts",
-    "build": "tsc",
-    "start": "node dist/worker.ts",
+    "build": "tsc --noEmit",
+    "start": "tsx src/worker.ts",
     "lint": "eslint --max-warnings 0",
+    "check-types": "tsc --noEmit",
     "test": "echo 'Add test script here'"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1106.0",
+    "@aws-sdk/s3-request-presigner": "^3.1106.0",
     "@repo/database": "workspace:*",
+    "@repo/queue": "workspace:*",
     "bullmq": "^5.81.2",
+    "dotenv": "^17.4.2",
     "ioredis": "^5.11.1",
-    "@repo/queue": "workspace:*"
+    "sharp": "^0.35.3",
+    "tsx": "^4.19.0"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "tsx":"^4.19.0"
+    "@types/node": "^22.15.3"
   }
 }

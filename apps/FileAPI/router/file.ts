@@ -3,7 +3,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { prisma } from "@repo/database";
 import { ORPCError } from "@orpc/client";
-import { emailQueue } from "@repo/queue";
+import { imageQueue, pdfQueue } from "@repo/queue";
 const s3client = new S3Client({
     region: process.env.BUCKET_REGION,
     credentials: {
@@ -50,11 +50,12 @@ export const Fileupload = secureOs.relaypipe.fileupload.handler(async ({ input, 
     throw new ORPCError("NOT_FOUND")
   }
   
-  await emailQueue.add("image-upload", {
+  const queue = jobdetails.mimeType.startsWith("image/") ? imageQueue : pdfQueue;
+  await queue.add("process-upload", {
     jobId: input.jobId,
     userId: context.userId,
-    MimeType: jobdetails.mimeType,
-    s3Key:jobdetails.s3Key
+    mimeType: jobdetails.mimeType,
+    s3Key: jobdetails.s3Key
   })
   await prisma.job.update({
     where: {
