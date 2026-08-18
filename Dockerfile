@@ -2,7 +2,7 @@
 # Deploy this to any platform that runs long-lived containers (Railway,
 # Render, Fly.io, ECS, VPS + Docker, ...). NOT suitable for serverless hosts
 # like Vercel — a worker must stay alive to consume Redis jobs.
-FROM node:22-slim
+FROM node:22.12.0-slim
 
 WORKDIR /app
 
