@@ -35,7 +35,7 @@
 
 ---
 
-## 📑 Table of contents
+## Table of contents
 
 - [Features](#features)
 - [Architecture](#architecture)
@@ -50,7 +50,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 - 🔐 **Authentication & per-user scoping** — Sign in with Clerk; every job belongs to your account.
 - 📤 **End-to-end upload path** — The API validates metadata and hands back a **presigned S3 PUT URL**, so files stream directly to S3 — never through the server.
@@ -62,7 +62,7 @@
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 <img src="apps/FileAPI/public/FlowDiagram.png" alt="RelayPipe architecture diagram" width="800" />
 
@@ -70,7 +70,7 @@ The upload path is fully wired end-to-end today: the web app creates a job recor
 
 ---
 
-## 🔄 How it works
+## How it works
 
 1. **Sign in** — Authenticate with Clerk. Only authenticated users can make requests.
 2. **Initialize** — The client calls `POST /api/v1/fileinit` with `{ filename, mimeType, size }`. The API validates (MIME type, ≤ 50 MB), creates a `pending` job in PostgreSQL, and returns `{ s3url, jobId }`.
@@ -81,7 +81,7 @@ The upload path is fully wired end-to-end today: the web app creates a job recor
 
 ---
 
-## 🧱 Monorepo layout
+## Monorepo layout
 
 This is a [Turborepo](https://turborepo.dev) monorepo managed with [pnpm](https://pnpm.io) workspaces.
 
@@ -106,7 +106,7 @@ This is a [Turborepo](https://turborepo.dev) monorepo managed with [pnpm](https:
 
 ---
 
-## 🧰 Tech stack
+## Tech stack
 
 | Layer | Technology |
 | --- | --- |
@@ -121,7 +121,7 @@ This is a [Turborepo](https://turborepo.dev) monorepo managed with [pnpm](https:
 
 ---
 
-## 🗃️ Data model
+## Data model
 
 Defined in `packages/database/prisma/schema.prisma` (PostgreSQL):
 
@@ -132,7 +132,7 @@ Defined in `packages/database/prisma/schema.prisma` (PostgreSQL):
 
 ---
 
-## 🚀 Getting started
+## Getting started
 
 ### Prerequisites
 
@@ -179,7 +179,7 @@ Open [http://localhost:3000](http://localhost:3000) (sign in with Clerk), then u
 
 ---
 
-## 📜 Scripts
+## Scripts
 
 Run from the repo root:
 
@@ -196,7 +196,7 @@ Run from the repo root:
 
 ---
 
-## 🔌 API
+## API
 
 The API is defined contract-first in `packages/contract` and served by `apps/FileAPI` under the `/api` prefix. All routes are JSON.
 
@@ -210,7 +210,7 @@ The API is defined contract-first in `packages/contract` and served by `apps/Fil
 
 ---
 
-## 🛣️ Roadmap
+## Roadmap
 
 **Working today:**
 
