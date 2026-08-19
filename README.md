@@ -204,24 +204,7 @@ The API is defined contract-first in `packages/contract` and served by `apps/Fil
 | --- | --- | --- |
 | `POST` | `/api/v1/fileinit` | Validates file metadata (MIME type, ≤ 50 MB), creates a pending `Job`, returns `{ s3url, jobId }` |
 | `POST` | `/api/v1/fileconfirm` | Confirms a job after a successful S3 upload, returns `{ jobId, Status }` (DB/queue wiring pending) |
-| `GET` | `/api/v1/get_api` | (contract defined; handler not implemented yet) Returns the user's API key |
 
 **Supported MIME types:** `image/jpeg`, `image/png`, `image/webp`, `application/pdf`.
 
 ---
-
-## Roadmap
-
-**Working today:**
-
-- [x] Clerk auth + user registration
-- [x] Contract-first API (oRPC) with generated OpenAPI spec
-- [x] Presigned S3 upload flow with job tracking
-- [x] Upload UI with progress, drag-and-drop, retry
-
-**In progress / stubbed:**
-
-- [ ] `fileconfirm` persists the job status and enqueues it on the BullMQ worker (currently returns `done` without a DB write)
-- [ ] Real processing logic in `file_worker` (currently a stub `emails` queue)
-- [ ] API key management (`get_api` route, `api_keys` table was dropped in a later migration)
-- [ ] Job outputs and webhook delivery
