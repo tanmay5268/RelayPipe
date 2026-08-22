@@ -3,10 +3,11 @@ import { Worker } from "bullmq";
 import { client } from "@repo/queue";
 import { prisma } from "@repo/database";
 import { imageProcessor } from "./processors/image.process";
+import { pdfProcessor } from "./processors/pdf.process";
 
-
+const imageQueueName = process.env.NODE_ENV === 'production' ? 'image-worker' : 'image-worker-dev'
 const imageWorker = new Worker(
-  "image-worker",
+  imageQueueName,
   imageProcessor,
   {
     connection: client,
@@ -14,15 +15,10 @@ const imageWorker = new Worker(
   }
 );
 
+const pdfQueueName = process.env.NODE_ENV === 'production' ? 'pdf-worker' : 'pdf-worker-dev'
 const pdfWorker = new Worker(
-  "pdf-worker",
-  async (job) => {
-    console.log("Processing job...PDF");
-    console.log(job.data);
-    setTimeout(() => {
-      console.log("Job processed");
-    }, 10000)
-  },
+  pdfQueueName,
+  pdfProcessor,
   {
     connection: client,
     concurrency: 5

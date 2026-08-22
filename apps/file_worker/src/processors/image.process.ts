@@ -33,19 +33,20 @@ export const imageProcessor = async (job: Job) => {
     }),
   );
 
-  await prisma.jobOutput.createMany({
-    data: outputs.map(({ outputType, s3Key, url }) => ({
-      jobId,
-      outputType,
-      s3Key,
-      url,
-    })),
-  });
-
-  await prisma.job.update({
-    where: { id: jobId },
-    data: { status: "done", completedAt: new Date() },
-  });
+  await prisma.$transaction([
+    prisma.jobOutput.createMany({
+      data: outputs.map(({ outputType, s3Key, url }) => ({
+        jobId,
+        outputType,
+        s3Key,
+        url,
+      })),
+    }),
+    prisma.job.update({
+      where: { id: jobId },
+      data: { status: "done", completedAt: new Date() },
+    }),
+  ]);
 
   console.log(
     `[image-worker] job ${jobId} processed in ${((Date.now() - startedAt) / 1000).toFixed(2)}s`,

@@ -1,9 +1,11 @@
 import { client } from './redis'
 import { Queue } from "bullmq";
 export { client } from './redis'
-export const imageQueue = new Queue("image-worker", {
+const imgqueue = process.env.NODE_ENV === 'production' ? 'image-worker' : 'image-worker-dev'
+export const imageQueue = new Queue(imgqueue, {
   connection: client
 });
-export const pdfQueue = new Queue("pdf-worker", {
+const pdfqueue = process.env.NODE_ENV === 'production' ? 'pdf-worker' : 'pdf-worker-dev'
+export const pdfQueue = new Queue(pdfqueue, {
   connection: client
 });
