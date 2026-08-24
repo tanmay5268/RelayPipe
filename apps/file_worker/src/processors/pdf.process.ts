@@ -18,7 +18,7 @@ export const pdfProcessor = async (job: Job) => {
     const originalBuffer = await getPdfBuffer(s3Key);
     const parsedPdf = new PDFParse(originalBuffer);
     const text = await parsedPdf.getText();
-    console.timeEndG("BufferLoading")
+    console.timeEnd("BufferLoading")
     console.time("AICall")
     const response = await fetch("https://router.requesty.ai/v1/chat/completions", {
       method: "POST",
