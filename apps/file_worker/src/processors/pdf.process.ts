@@ -14,10 +14,12 @@ export const pdfProcessor = async (job: Job) => {
       where: { id: jobId },
       data: { status: "processing" },
     });
-
+    console.time("BufferLoading")
     const originalBuffer = await getPdfBuffer(s3Key);
     const parsedPdf = new PDFParse(originalBuffer);
     const text = await parsedPdf.getText();
+    console.timeEndG("BufferLoading")
+    console.time("AICall")
     const response = await fetch("https://router.requesty.ai/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -34,7 +36,7 @@ export const pdfProcessor = async (job: Job) => {
         ],
       }),
     });
-
+    console.timeEnd("AICall")
     if (!response.ok) {
       throw new Error(`API request failed: ${response.status} ${response.statusText}`);
     }
@@ -47,10 +49,11 @@ export const pdfProcessor = async (job: Job) => {
     }
 
     console.log(`[pdf-worker] job ${jobId} summary:`, summary);
-
+    console.time("S3_working")
     const outputKey = buildOutputS3Key(jobId, "summary", "txt");
     const url = await putObjectBuffer(outputKey, Buffer.from(summary, "utf-8"), "text/plain");
-
+    console.timeEnd("S3_working")
+    console.time("DB call")
     await prisma.$transaction([
       prisma.jobOutput.create({
         data: {
@@ -65,7 +68,7 @@ export const pdfProcessor = async (job: Job) => {
         data: { status: "done", completedAt: new Date() },
       }),
     ]);
-
+console.timeEnd("DB call")
     console.log(
       `[pdf-worker] job ${jobId} completed in ${((Date.now() - startedAt) / 1000).toFixed(2)}s`,
     );
