@@ -21,7 +21,7 @@ import { Progress } from "@/components/ui/progress"
 import { uploadFile, type UploadResult } from "@/lib/upload-service"
 import { ImageIcon, VideoCameraIcon, Headphones, FileTextIcon, FileArchive, UploadSimple, XIcon, WarningCircleIcon, ArrowsClockwiseIcon } from "@phosphor-icons/react"
 
-interface FileUploadItem extends FileWithPreview {
+export interface FileUploadItem extends FileWithPreview {
   progress: number
   status: "uploading" | "completed" | "error" | "uploading-real"
   error?: string
@@ -266,10 +266,10 @@ setUploadFiles(newUploadFiles)
       {/* Upload Area */}
       <div
         className={cn(
-          "rounded-lg relative border border-dashed p-8 text-center transition-colors",
+          "rounded-xl relative border border-dashed p-8 text-center transition-colors",
           isDragging
-            ? "border-primary bg-primary/5"
-            : "border-orange-300"
+            ? "border-primary bg-primary/10 shadow-[0_0_40px_-12px_color-mix(in_oklch,var(--primary)_45%,transparent)]"
+            : "border-primary/35 hover:border-primary/60"
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -292,7 +292,9 @@ setUploadFiles(newUploadFiles)
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-lg text-white font-semibold">Upload your files</h3>
+            <h3 className="font-display text-lg font-semibold text-foreground">
+              Upload your files
+            </h3>
             <p className="text-muted-foreground text-sm">
               Drag and drop files here or click to browse
             </p>
@@ -301,7 +303,7 @@ setUploadFiles(newUploadFiles)
             </p>
           </div>
 
-          <Button className={`rounded-lg`} onClick={openFileDialog}>
+          <Button className="rounded-lg px-5" onClick={openFileDialog}>
             <UploadSimple className="h-4 w-4" />
             Select files
           </Button>
@@ -312,7 +314,7 @@ setUploadFiles(newUploadFiles)
       {uploadFiles.length > 0 && (
         <div className="mt-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h4 className="text-sm text-white font-medium">Upload Progress</h4>
+            <h4 className="text-sm font-medium text-foreground">Upload Progress</h4>
             <div className="flex items-center gap-2">
               {completedCount > 0 && (
                 <Badge size="sm" variant="success-light">
@@ -332,7 +334,7 @@ setUploadFiles(newUploadFiles)
             </div>
           </div>
 
-          <Button className={`text-white`} onClick={clearFiles} variant="outline" size="sm">
+          <Button onClick={clearFiles} variant="outline" size="sm">
             Clear all
           </Button>
         </div>
@@ -344,7 +346,7 @@ setUploadFiles(newUploadFiles)
           {uploadFiles.map((fileItem: FileUploadItem) => (
             <div
               key={fileItem.id}
-              className="border-border bg-orange-50 rounded-lg border p-2.5"
+              className="rounded-xl border border-border bg-card/70 p-2.5 transition-colors hover:border-primary/40"
             >
               <div className="flex items-start gap-5.5">
                 {/* File Icon */}
