@@ -34,7 +34,7 @@ export type PipelineJob = {
  */
 export async function getPipelineJobs(): Promise<PipelineJob[]> {
   const email = await clerk_user_email();
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findUnique({ where: { email }, select: { id: true } });
   if (!user) return [];
 
   const jobs = await prisma.job.findMany({

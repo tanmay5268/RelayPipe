@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { SignUpButton } from "@clerk/nextjs";
 import { Reveal } from "./Reveal";
-import { ArrowRight } from "@phosphor-icons/react";
+import { ArrowRight, CircleNotch } from "@phosphor-icons/react";
 import { Logo } from "./Logo";
 import { useToast } from "@/components/ui/toast-context";
 import { registerUser } from "@/actions";
@@ -13,6 +14,7 @@ export default function CTA() {
   const { isSignedIn } = useAuth();
   const { showToast } = useToast();
   const router = useRouter();
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const handleStart = async () => {
     if (!isSignedIn) {
@@ -24,8 +26,20 @@ export default function CTA() {
       );
       return;
     }
-    await registerUser();
-    router.push("/project");
+    setIsRegistering(true);
+    try {
+      await registerUser();
+      router.push("/project");
+    } catch (err) {
+      console.error("registerUser failed:", err);
+      showToast(
+        "error",
+        "Something went wrong",
+        "We couldn't set up your workspace. Please try again.",
+        5000,
+      );
+      setIsRegistering(false);
+    }
   };
 
   return (
@@ -57,13 +71,23 @@ export default function CTA() {
             {isSignedIn ? (
               <button
                 onClick={handleStart}
-                className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-8 text-base font-semibold text-primary-foreground shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_35%,transparent),0_12px_32px_-12px_color-mix(in_oklch,var(--primary)_75%,transparent)] transition-all duration-200 hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none sm:w-auto"
+                disabled={isRegistering}
+                className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-8 text-base font-semibold text-primary-foreground shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_35%,transparent),0_12px_32px_-12px_color-mix(in_oklch,var(--primary)_75%,transparent)] transition-all duration-200 hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-70 sm:w-auto"
               >
-                Upload your first file
-                <ArrowRight
-                  weight="bold"
-                  className="size-5 transition-transform duration-200 group-hover:translate-x-1"
-                />
+                {isRegistering ? (
+                  <>
+                    <CircleNotch weight="bold" className="size-5 animate-spin" />
+                    Setting things up…
+                  </>
+                ) : (
+                  <>
+                    Upload your first file
+                    <ArrowRight
+                      weight="bold"
+                      className="size-5 transition-transform duration-200 group-hover:translate-x-1"
+                    />
+                  </>
+                )}
               </button>
             ) : (
               <SignUpButton mode="modal">

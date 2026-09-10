@@ -12,7 +12,11 @@ import {
 import { useToast } from "@/components/ui/toast-context";
 import { registerUser } from "@/actions";
 import { Logo } from "./Logo";
-import { ArrowRight, TerminalWindow } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  CircleNotch,
+  TerminalWindow,
+} from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 const container: Variants = {
@@ -70,6 +74,7 @@ export default function Hero() {
   const { showToast } = useToast();
   const router = useRouter();
   const [logCount, setLogCount] = useState(3);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -90,8 +95,20 @@ export default function Hero() {
       );
       return;
     }
-    await registerUser();
-    router.push(direct);
+    setIsRegistering(true);
+    try {
+      await registerUser();
+      router.push(direct);
+    } catch (err) {
+      console.error("registerUser failed:", err);
+      showToast(
+        "error",
+        "Something went wrong",
+        "We couldn't set up your workspace. Please try again.",
+        5000,
+      );
+      setIsRegistering(false);
+    }
   };
 
   const handleApiPlayground = () => {
@@ -166,13 +183,23 @@ export default function Hero() {
             {isSignedIn ? (
               <button
                 onClick={() => handleSeeHowItWorks("/project")}
-                className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-7 text-base font-semibold text-primary-foreground shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_35%,transparent),0_12px_32px_-12px_color-mix(in_oklch,var(--primary)_75%,transparent)] transition-all duration-200 hover:bg-primary/90 hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_50%,transparent),0_16px_40px_-12px_color-mix(in_oklch,var(--primary)_90%,transparent)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none sm:w-auto"
+                disabled={isRegistering}
+                className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-7 text-base font-semibold text-primary-foreground shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_35%,transparent),0_12px_32px_-12px_color-mix(in_oklch,var(--primary)_75%,transparent)] transition-all duration-200 hover:bg-primary/90 hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_50%,transparent),0_16px_40px_-12px_color-mix(in_oklch,var(--primary)_90%,transparent)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-70 sm:w-auto"
               >
-                Upload a file
-                <ArrowRight
-                  weight="bold"
-                  className="size-5 transition-transform duration-200 group-hover:translate-x-1"
-                />
+                {isRegistering ? (
+                  <>
+                    <CircleNotch weight="bold" className="size-5 animate-spin" />
+                    Setting things up…
+                  </>
+                ) : (
+                  <>
+                    Upload a file
+                    <ArrowRight
+                      weight="bold"
+                      className="size-5 transition-transform duration-200 group-hover:translate-x-1"
+                    />
+                  </>
+                )}
               </button>
             ) : (
               <SignUpButton mode="modal">
